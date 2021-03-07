@@ -1,0 +1,13 @@
+.text-center.py-5.px-3
+  %h2 Tasks
+
+  = link_to new_task_url do
+    %button.btn.btn-primary Create New
+
+  .mt-5
+    - @tasks.each do |task|
+      .row
+        .col-sm= link_to task.title, edit_task_url(task)
+        .col-sm= task.description
+        .col-sm= task.status
+        .col-sm= task.user_name
