@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+
+<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+<br/>
+<%= link_to('OAuth Applications', oauth_applications_path) %>
+
+<br/>
+<br/>
+<br/>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>public_id</th>
+      <th>full name</th>
+      <th>email</th>
+      <th>phone number</th>
+      <th>slack account</th>
+      <th>active?</th>
+      <th>role</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.public_id %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone_number %></td>
+        <td><%= user.slack_account %></td>
+        <td><%= user.active %></td>
+        <td><%= user.role %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

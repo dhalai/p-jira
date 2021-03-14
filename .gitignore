@@ -4,37 +4,62 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# AUTH
 # Ignore bundler config.
-/.bundle
-
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-*
+/auth/.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+/auth/log/*
+/auth/tmp/*
 
 # Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/
-!/tmp/pids/.keep
+/auth/tmp/pids/*
+!/auth/tmp/pids/
+!/auth/tmp/pids/.keep
 
 # Ignore uploaded files in development.
-/storage/*
-!/storage/.keep
+/auth/storage/*
+!/auth/storage/.keep
 
-/public/assets
-.byebug_history
+/auth/public/assets
+/auth/.byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
+/auth/config/master.key
 
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+/auth/public/packs
+/auth/public/packs-test
+/auth/node_modules
+/auth/yarn-error.log
+/auth/yarn-debug.log*
+/auth/.yarn-integrity
+
+# Task Tracker
+# Ignore bundler config.
+/task-tracker/.bundle
+
+# Ignore all logfiles and tempfiles.
+/task-tracker/log/*
+/task-tracker/tmp/*
+
+# Ignore pidfiles, but keep the directory.
+/task-tracker/tmp/pids/*
+!/task-tracker/tmp/pids/
+!/task-tracker/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/task-tracker/storage/*
+!/task-tracker/storage/.keep
+
+/task-tracker/public/assets
+/task-tracker/.byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/task-tracker/config/master.key
+
+/task-tracker/public/packs
+/task-tracker/public/packs-test
+/task-tracker/node_modules
+/task-tracker/yarn-error.log
+/task-tracker/yarn-debug.log*
+/task-tracker/.yarn-integrity

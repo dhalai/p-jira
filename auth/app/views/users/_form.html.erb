@@ -1,0 +1,37 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %>:</h2>
+
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :full_name %><br />
+    <%= form.text_field(:full_name) %>
+  </div>
+
+  <div>
+    <%= form.label :phone_number %><br />
+    <%= form.text_field(:phone_number) %>
+  </div>
+
+  <div>
+    <%= form.label :slack_account %><br />
+    <%= form.text_field(:slack_account) %>
+  </div>
+
+  <div>
+    <%= form.label :role %><br />
+    <%= form.select(:role, User.roles.keys) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
