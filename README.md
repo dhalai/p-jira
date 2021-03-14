@@ -2,21 +2,28 @@ Event storming diagrams
 ---
 
 
-![Tasks management](https://user-images.githubusercontent.com/453727/110454229-4803fc00-80c7-11eb-97a2-c4a8ee814fb0.jpg)
-
-![Accounting](https://user-images.githubusercontent.com/453727/110454248-4d614680-80c7-11eb-93b2-5632d2b691ae.jpg)
-
-![Analytics](https://user-images.githubusercontent.com/453727/110454277-54885480-80c7-11eb-988d-044ad954c949.jpg)
-
-![Auth](https://user-images.githubusercontent.com/453727/110454288-594d0880-80c7-11eb-8862-2465afa8f964.jpg)
+![Event storming - tasks management](https://user-images.githubusercontent.com/453727/111066103-a2350080-84bd-11eb-8b75-cdedda616966.jpg)
 
 
-![Data Model](https://user-images.githubusercontent.com/453727/110454311-5f42e980-80c7-11eb-83d5-09aa96650313.jpg)
+![Event storming - accounting](https://user-images.githubusercontent.com/453727/111066114-a7924b00-84bd-11eb-9ccb-21d222b6829d.jpg)
 
 
-![Domain Model](https://user-images.githubusercontent.com/453727/110454323-6538ca80-80c7-11eb-9033-3588b87b9ffa.jpg)
+![Event storming - analytics](https://user-images.githubusercontent.com/453727/111066117-aeb95900-84bd-11eb-98bb-20123e898626.jpg)
 
 
-[P Jira event storming.pdf](https://github.com/dhalai/p-jira/files/6107670/P.Jira.event.storming.pdf)
+![Event stormin - auth](https://user-images.githubusercontent.com/453727/111066125-b547d080-84bd-11eb-9b29-941b85fe9226.jpg)
+
+
+![Event storming - data model](https://user-images.githubusercontent.com/453727/111066130-bb3db180-84bd-11eb-85be-47dc05df10ac.jpg)
+
+
+Domain + service model
+---
+
+![domain model with events](https://user-images.githubusercontent.com/453727/111066158-dc060700-84bd-11eb-987d-510a51c6cf17.jpg)
+
+
+[P Jira event storming.pdf](https://github.com/dhalai/p-jira/files/6136525/P.Jira.event.storming.pdf)
+
 
 Related miro link: https://miro.com/app/board/iXjVOf1ZEpo=/
