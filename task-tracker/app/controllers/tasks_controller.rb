@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   def create
     if new_task.valid?
       new_task.save
-      redirect_to action: 'index'
+      redirect_to root_path, notice: t('.created')
     else
       @data = task_data(task: new_task)
       render :new
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
 
   def update
     if updated_task
-      redirect_to action: 'index'
+      redirect_to root_path, notice: t('.updated')
     else
       @data = task_data(task: updated_task)
       render :edit
@@ -40,7 +40,17 @@ class TasksController < ApplicationController
       #TODO send task.destroyed event
     end
 
-    redirect_to action: 'index'
+      redirect_to root_path, notice: t('.destroyed')
+  end
+
+  def assign
+    return redirect_to root_path if !@current_user.admin? && !@current_user.manager?
+
+    task_class.opened.each do |task|
+      Tasks::Assign.new.call(task: task)
+    end
+
+    redirect_to root_path, notice: t('.assigned')
   end
 
   private
@@ -64,7 +74,7 @@ class TasksController < ApplicationController
   end
 
   def new_task
-    @new_task ||= task_class.new(permitted_params)
+    @new_task ||= Tasks::Build.new.call(params: permitted_params)
   end
 
   def updated_task
@@ -80,10 +90,9 @@ class TasksController < ApplicationController
   end
 
   def task_scope
-    case @current_user.role
-    when *%w[admin manager]
+    if @current_user.admin? || @current_user.manager?
       task_class.includes(:user).all
-    when 'employee'
+    elsif @current_user.employee?
       @curren_user.tasks
     else
       []

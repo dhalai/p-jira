@@ -6,3 +6,7 @@
     .navbar-brand
       = username
     = link_to 'logout', logout_url
+
+- if flash[:notice].present?
+  .alert.alert-primary{style: 'margin-top: 80px'}=flash[:notice]
+

@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_141537) do
 
   create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
+    t.string "public_id", null: false
     t.uuid "user_id"
     t.integer "status", default: 0
     t.text "description"
