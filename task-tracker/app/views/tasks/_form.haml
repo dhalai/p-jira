@@ -11,8 +11,5 @@
       .mb-3
         = form.label :status, class: 'form-label'
         = form.select :status, data[:statuses], class: 'form-select'
-      .mb-3
-        = form.label :user_id, class: 'form-label'
-        = form.collection_select :user_id, data[:users], :id, :name, include_blank: true, class: 'form-select'
       = form.submit 'Submit', class: 'btn btn-primary'
   .col-2

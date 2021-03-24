@@ -11,7 +11,7 @@
     = csrf_meta_tags
 
   %body
-    = render 'shared/header'
+    = render 'shared/header', username: username
 
     %main.cotainer.py-5
       = yield

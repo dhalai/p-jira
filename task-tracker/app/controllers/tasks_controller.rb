@@ -1,6 +1,9 @@
 class TasksController < ApplicationController
+  before_action :authorize
+  before_action :check_permissons, only: %i[edit update destroy]
+
   def index
-    @tasks = task_class.all.includes(:user).map do |task|
+    @tasks = task_scope.map do |task|
       TaskDecorator.new(task)
     end
   end
@@ -20,9 +23,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @data = task_data(
-      task: task_class.find_by(id: params[:id])
-    )
+    @data = task_data(task: load_task)
   end
 
   def update
@@ -35,13 +36,24 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = task_class.find_by(id: params[:id])
-    @task.destroy
+    if load_task&.destroy
+      #TODO send task.destroyed event
+    end
 
     redirect_to action: 'index'
   end
 
   private
+
+  def check_permissons
+    return if @current_user.admin? || @current_user.manager?
+    return if @current_user&.tasks&.include?(load_task)
+    redirect_to root_path
+  end
+
+  def load_task
+    task_class.find_by(id: params[:id])
+  end
 
   def task_data(task: task_class.new)
     {
@@ -65,6 +77,17 @@ class TasksController < ApplicationController
     params.require(:task).permit(
       :id, :title, :description, :status, :user_id
     )
+  end
+
+  def task_scope
+    case @current_user.role
+    when *%w[admin manager]
+      task_class.includes(:user).all
+    when 'employee'
+      @curren_user.tasks
+    else
+      []
+    end
   end
 
   def task_class

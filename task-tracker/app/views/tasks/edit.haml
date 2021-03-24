@@ -1,4 +1,21 @@
 .text-center.py-5.px-3
   %h2
     = @data[:task].title
-  = render 'form', data: @data
+  .mt-5.row
+    .col-2
+    .col-8
+      = form_for @data[:task] do |form|
+        - if user_task?(@data[:task])
+          .mb-3
+            = form.label :status, class: 'form-label'
+            = form.select :status, @data[:statuses], class: 'form-select'
+        - else
+          .mb-3
+            = form.label :title, class: 'form-label'
+            = form.text_field :title, class: 'form-control'
+          .mb-3
+            = form.label :description, class: 'form-label'
+            = form.text_area :description, class: 'form-control'
+
+        = form.submit 'Submit', class: 'btn btn-primary'
+    .col-2

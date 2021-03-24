@@ -6,60 +6,32 @@
 
 # AUTH
 # Ignore bundler config.
-/auth/.bundle
+/**/.bundle
 
 # Ignore all logfiles and tempfiles.
-/auth/log/*
-/auth/tmp/*
+/**/log/*
+/**/tmp/*
 
 # Ignore pidfiles, but keep the directory.
-/auth/tmp/pids/*
-!/auth/tmp/pids/
-!/auth/tmp/pids/.keep
+/**/tmp/pids/*
+!/**/tmp/pids/
+!/**/tmp/pids/.keep
 
 # Ignore uploaded files in development.
-/auth/storage/*
-!/auth/storage/.keep
+/**/storage/*
+!/**/storage/.keep
 
-/auth/public/assets
-/auth/.byebug_history
-
-# Ignore master key for decrypting credentials and more.
-/auth/config/master.key
-
-/auth/public/packs
-/auth/public/packs-test
-/auth/node_modules
-/auth/yarn-error.log
-/auth/yarn-debug.log*
-/auth/.yarn-integrity
-
-# Task Tracker
-# Ignore bundler config.
-/task-tracker/.bundle
-
-# Ignore all logfiles and tempfiles.
-/task-tracker/log/*
-/task-tracker/tmp/*
-
-# Ignore pidfiles, but keep the directory.
-/task-tracker/tmp/pids/*
-!/task-tracker/tmp/pids/
-!/task-tracker/tmp/pids/.keep
-
-# Ignore uploaded files in development.
-/task-tracker/storage/*
-!/task-tracker/storage/.keep
-
-/task-tracker/public/assets
-/task-tracker/.byebug_history
+/**/public/assets
+/**/.byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/task-tracker/config/master.key
+/**/config/master.key
 
-/task-tracker/public/packs
-/task-tracker/public/packs-test
-/task-tracker/node_modules
-/task-tracker/yarn-error.log
-/task-tracker/yarn-debug.log*
-/task-tracker/.yarn-integrity
+/**/public/packs
+/**/public/packs-test
+/**/node_modules
+/**/yarn-error.log
+/**/yarn-debug.log*
+/**/.yarn-integrity
+
+/**/.env
