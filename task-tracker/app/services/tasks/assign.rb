@@ -16,10 +16,8 @@ module Tasks
 
     def call(task:)
       if task.update(user_id: random_user_id)
-        event_sender.call(
-          topic: topic_name,
-          data: event_data(task)
-        )
+        send_business_event(task)
+        send_cud_event(task)
       end
     end
 
@@ -31,8 +29,11 @@ module Tasks
       user_model.pluck(:id).sample
     end
 
-    def topic_name
-      topics.dig(:tasks, :assigned)
+    def send_business_event(task)
+      event_sender.call(
+        topic: topics.dig(:tasks, :be, :assigned),
+        data: event_data(task)
+      )
     end
 
     def event_data(task)
@@ -44,9 +45,16 @@ module Tasks
         event_name: 'TaskAssigned',
         data: {
           public_id: task.public_id,
-          assignee_id: task.reload.user.public_id
+          assignee_id: task.user.public_id
         }
       }
+    end
+
+    def send_cud_event(task)
+      event_sender.call(
+        topic: topics.dig(:tasks, :cud, :assigned),
+        data: event_data(task)
+      )
     end
   end
 end

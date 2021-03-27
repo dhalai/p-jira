@@ -13,8 +13,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    if new_task.valid?
-      new_task.save
+    if new_task
       redirect_to root_path, notice: t('.created')
     else
       @data = task_data(task: new_task)
@@ -36,11 +35,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    if load_task&.destroy
-      #TODO send task.destroyed event
-    end
-
-      redirect_to root_path, notice: t('.destroyed')
+    Tasks::Destroy.new.call(task: load_task)
+    redirect_to root_path, notice: t('.destroyed')
   end
 
   def assign
@@ -74,13 +70,11 @@ class TasksController < ApplicationController
   end
 
   def new_task
-    @new_task ||= Tasks::Build.new.call(params: permitted_params)
+    @new_task ||= Tasks::Create.new.call(params: permitted_params)
   end
 
   def updated_task
-    @updated_task ||= task_class.find_by(id: params[:id]).update(
-      permitted_params
-    )
+    @updated_task ||= Tasks::Update.new.call(id: params[:id], params: permitted_params)
   end
 
   def permitted_params

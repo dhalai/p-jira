@@ -1,6 +1,8 @@
 class Topics
   FILENAME = 'event_topics.yml'.freeze
 
+  private_constant :FILENAME
+
   def initialize(yaml: YAML, file: File, root_path: Rails.root)
     @yaml = yaml
     @file = file
@@ -9,7 +11,7 @@ class Topics
 
   def call
     yaml.load(
-      file.read(root_path.join('config', FILENAME))
+      file.read("#{root_path}/config/#{FILENAME}")
     ).deep_symbolize_keys
   end
 
