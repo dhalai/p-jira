@@ -87,7 +87,7 @@ class TasksController < ApplicationController
     if @current_user.admin? || @current_user.manager?
       task_class.includes(:user).all
     elsif @current_user.employee?
-      @curren_user.tasks
+      @current_user.tasks
     else
       []
     end

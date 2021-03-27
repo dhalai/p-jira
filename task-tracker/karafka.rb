@@ -5,34 +5,16 @@
 # command again or refer to the install templates available in the source codes
 
 ENV['RACK_ENV'] ||= 'development'
+ENV['RAILS_ENV'] ||= ENV['RACK_ENV']
 ENV['KARAFKA_ENV'] ||= ENV['RACK_ENV']
 Bundler.require(:default, ENV['KARAFKA_ENV'])
 
-# Zeitwerk custom loader for loading the app components before the whole
-# Karafka framework configuration
-APP_LOADER = Zeitwerk::Loader.new
-APP_LOADER.enable_reloading
-
-%w[
-  lib
-  app/consumers
-  app/responders
-  app/workers
-  app/services
-].each(&APP_LOADER.method(:push_dir))
-
-APP_LOADER.setup
-APP_LOADER.eager_load
-
-class JsonDeserializer
-  def self.parse(message)
-    JSON.parse(message)
-  end
-end
+require ::File.expand_path('../config/environment', __FILE__)
+Rails.application.eager_load!
 
 class KarafkaApp < Karafka::App
   setup do |config|
-    config.kafka.seed_brokers = %w[kafka://127.0.0.1:9092]
+    config.kafka.seed_brokers = [ENV['KAFKA_SEED_BROKER']]
     config.client_id = 'p_jira_task_tracker'
   end
 
@@ -60,6 +42,10 @@ class KarafkaApp < Karafka::App
 
     topic topics.dig(:users, :cud, :general) do
       consumer ::Users::Cud::GeneralConsumer
+    end
+
+    topic topics.dig(:users, :be, :general) do
+      consumer ::Users::Be::GeneralConsumer
     end
   end
 end

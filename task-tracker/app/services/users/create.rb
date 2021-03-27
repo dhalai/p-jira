@@ -1,7 +1,8 @@
 module Users
   class Create
-    def initialize(model: AuthIdentity)
+    def initialize(model: AuthIdentity, user_model: User)
       @model = model
+      @user_model = user_model
     end
 
     def call(payload:)
@@ -9,12 +10,11 @@ module Users
       return existing_user if existing_user.present?
 
       create_new_user(payload)
-      #TODO: send a user.created CUD event
     end
 
     private
 
-    attr_reader :model
+    attr_reader :model, :user_model
 
     def user(payload)
       model.joins(:user).find_by(
@@ -24,9 +24,16 @@ module Users
     end
 
     def create_new_user(payload)
-      model.create(
-        identity_params(payload).merge(user_params(payload))
-      )
+      model.transaction do
+        identity = model.create(identity_params(payload))
+        existing_user = user_model.find_by(email: payload.dig(:info, :email))
+
+        if existing_user.present?
+          identity.update(user_id: existing_user.id)
+        else
+          identity.user.create(payload.dig(:info).slice(:full_name, :public_id, :email, :role))
+        end
+      end
     end
 
     def identity_params(payload)
@@ -35,12 +42,6 @@ module Users
         provider: payload.dig(:provider),
         login: payload.dig(:info, :email),
         token: payload.dig(:credentials, :token)
-      }
-    end
-
-    def user_params(payload)
-      {
-        user_attributes: payload.dig(:info).slice(:full_name, :public_id, :email, :role)
       }
     end
   end

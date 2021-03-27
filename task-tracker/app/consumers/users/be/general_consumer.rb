@@ -1,5 +1,5 @@
 module Users
-  module Cud
+  module Be
     class GeneralConsumer < ApplicationConsumer
       def consume
         params_batch.each do |msg|
@@ -12,12 +12,7 @@ module Users
       private
 
       def process_msg(msg)
-        case msg.payload['event_name']
-        when 'UserUpdated'
-          Users::UpdateOrCreate.new.call(
-            payload: msg.payload['data']
-          )
-        end
+        # byebug
       end
     end
   end

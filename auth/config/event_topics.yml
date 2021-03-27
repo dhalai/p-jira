@@ -1,0 +1,5 @@
+users:
+  cud:
+    general: 'users-stream'
+  be:
+    general: 'users'
