@@ -4,10 +4,14 @@
   = link_to new_task_url do
     %button.btn.btn-primary Create New
 
+  - if can_assign?(@current_user)
+    = link_to assign_tasks_url do
+      %button.btn.btn-primary Assign Tasks
+
   .mt-5
     - @tasks.each do |task|
       .row
         .col-sm= link_to task.title, edit_task_url(task)
         .col-sm= task.description
         .col-sm= task.status
-        .col-sm= task.user_name
+        .col-sm= task.username

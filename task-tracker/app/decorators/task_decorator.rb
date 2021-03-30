@@ -1,5 +1,5 @@
 class TaskDecorator < SimpleDelegator
-  def user_name
-    user&.name
+  def username
+    user&.full_name
   end
 end
