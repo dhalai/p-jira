@@ -12,6 +12,12 @@ module Users
       private
 
       def process_msg(msg)
+        case msg.payload['event_name']
+        when 'UserRoleUpdated'
+          Users::UpdateOrCreate.new.call(
+            payload: msg.payload['data']
+          )
+        end
       end
     end
   end

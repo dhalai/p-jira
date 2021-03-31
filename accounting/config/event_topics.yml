@@ -1,0 +1,13 @@
+users:
+  cud:
+    general: 'users-stream'
+  be:
+    general: 'users'
+tasks:
+  cud:
+    general: 'tasks-stream'
+    assigned: 'task-statuses-stream'
+    destroyed: 'task-statuses-stream'
+    price_calculated: 'task-price-stream'
+  be:
+    assigned: 'task-statuses'
