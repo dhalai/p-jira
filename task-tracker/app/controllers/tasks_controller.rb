@@ -64,7 +64,7 @@ class TasksController < ApplicationController
   def task_data(task: task_class.new)
     {
       task: task,
-      statuses: task_class.statuses.keys,
+      statuses: task_class.statuses.keys - ['deleted'],
       users: User.all
     }
   end
@@ -74,7 +74,10 @@ class TasksController < ApplicationController
   end
 
   def updated_task
-    @updated_task ||= Tasks::Update.new.call(id: params[:id], params: permitted_params)
+    @updated_task ||= Tasks::Update.new.call(
+      id: params[:id],
+      params: permitted_params
+    )
   end
 
   def permitted_params

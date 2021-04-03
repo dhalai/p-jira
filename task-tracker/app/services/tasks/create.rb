@@ -5,15 +5,13 @@ module Tasks
       event_sender: Events::Sender.new,
       randomizer: SecureRandom,
       time: Time,
-      topics: Topics.new,
-      price_estimator: Tasks::PriceCalculator.new
+      topics: Topics.new
     )
       @model = model
       @event_sender = event_sender
       @randomizer = randomizer
       @time = time
       @topics = topics.call
-      @price_estimator = price_estimator
     end
 
     def call(params:)
@@ -22,14 +20,13 @@ module Tasks
 
       if task.save
         send_event(task)
-        calculate_task_price(task)
-        return task
+        task
       end
     end
 
     private
 
-    attr_reader :model, :event_sender, :randomizer, :time, :topics, :price_estimator
+    attr_reader :model, :event_sender, :randomizer, :time, :topics
 
     def build_task(params)
       model.new(
@@ -55,10 +52,6 @@ module Tasks
         event_name: 'TaskCreated',
         data: task.attributes
       }
-    end
-
-    def calculate_task_price(task)
-      price_estimator.call(task: task)
     end
   end
 end

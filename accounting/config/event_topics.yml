@@ -6,8 +6,13 @@ users:
 tasks:
   cud:
     general: 'tasks-stream'
-    assigned: 'task-statuses-stream'
+    assigned: 'task-assignee-stream'
+    finished: 'task-statuses-stream'
     destroyed: 'task-statuses-stream'
     price_calculated: 'task-price-stream'
   be:
-    assigned: 'task-statuses'
+    assigned: 'task-assignee'
+    finished: 'task-statuses'
+auditlogs:
+  cud:
+    general: 'auditlogs-stream'

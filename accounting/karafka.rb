@@ -51,6 +51,14 @@ class KarafkaApp < Karafka::App
     topic topics.dig(:tasks, :cud, :general) do
       consumer ::Tasks::Cud::GeneralConsumer
     end
+
+    topic topics.dig(:tasks, :be, :assigned) do
+      consumer ::Tasks::Be::AssigneeConsumer
+    end
+
+    topic topics.dig(:tasks, :be, :finished) do
+      consumer ::Tasks::Be::StatusConsumer
+    end
   end
 end
 

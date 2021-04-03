@@ -5,6 +5,7 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       t.string :public_id, null: false
       t.uuid :user_id, default: nil
       t.integer :status, default: 0
+      t.integer :price, default: nil
 
       t.timestamps
     end
