@@ -2,6 +2,7 @@ module Tasks
   module Be
     class AssigneeConsumer < ApplicationConsumer
       def consume
+        # TODO: move to sidekiq
         params_batch.each do |msg|
           super(msg) do
             process_msg(msg)

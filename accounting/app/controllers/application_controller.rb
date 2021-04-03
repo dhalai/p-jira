@@ -5,4 +5,9 @@ class ApplicationController < ActionController::Base
 
     redirect_to login_path unless @current_user.present?
   end
+
+  def check_permissons
+    return if @current_user.admin? || @current_user.accountant?
+    render plain: 'Unauthorized', status: :unauthorized, layout: false
+  end
 end

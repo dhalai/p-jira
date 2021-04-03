@@ -16,3 +16,6 @@ tasks:
 auditlogs:
   cud:
     general: 'auditlogs-stream'
+payments:
+  be:
+    created: 'payments'

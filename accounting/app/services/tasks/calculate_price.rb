@@ -1,7 +1,7 @@
 module Tasks
   class CalculatePrice
     def call
-      rand(-20..-10)
+      rand(10..20)
     end
   end
 end

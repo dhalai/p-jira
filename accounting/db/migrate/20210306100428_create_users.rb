@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :public_id
       t.string :email
       t.integer :role
-      t.bigint :balance
+      t.bigint :balance, default: 0
 
       t.timestamps
     end

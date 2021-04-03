@@ -1,0 +1,18 @@
+.text-center.py-5.px-3
+  %h1 Auditlog
+
+  - if @auditlogs.present?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{:scope => "col"} Debit
+          %th{:scope => "col"} Credit
+          %th{:scope => "col"} Task
+          %th{:scope => "col"} Creation Date
+      %tbody
+        - @auditlogs.each do |auditlog|
+          %tr
+            %td= auditlog.debit
+            %td= auditlog.credit
+            %td= auditlog.task.title
+            %td= auditlog.created_at

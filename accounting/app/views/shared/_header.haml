@@ -2,9 +2,9 @@
   .container-fluid
     %a.navbar-brand{:href => "/"} P Jira
 
-  %div
-    .navbar-brand
-      = username
+  .navbar-brand Earned today: #{daily_earned_amount}
+  .navbar-brand
+    = username
     = link_to 'logout', logout_url
 
 - if flash[:notice].present?

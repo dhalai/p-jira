@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 2021_04_01_185705) do
     t.string "public_id", null: false
     t.uuid "user_id", null: false
     t.uuid "task_id"
-    t.bigint "credit"
-    t.bigint "debit"
+    t.bigint "credit", default: 0
+    t.bigint "debit", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

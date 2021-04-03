@@ -3,4 +3,5 @@ class User < ApplicationRecord
 
   has_many :auth_identities
   has_many :tasks
+  has_many :auditlogs
 end

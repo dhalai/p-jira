@@ -18,13 +18,14 @@ module Tasks
       user = user_model.find_by(public_id: payload.dig('assignee_id'))
 
       # backoff in case there're no such items
+      # return unless task && user
       raise UnexistingTask unless task
       raise UnexistingUser unless user
 
       debit = task.price
       task.transaction do
         task.update(user_id: user.id)
-        user.update(balance: user.balance.to_i + debit)
+        user.update(balance: user.balance.to_i - debit)
         auditlog_creator.new.call(data: auditlog_data(task, debit))
       end
     end

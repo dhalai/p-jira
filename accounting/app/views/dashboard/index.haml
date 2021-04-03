@@ -1,2 +1,14 @@
 .text-center.py-5.px-3
- %h1 Dashboard
+  %h1 Dashboard
+
+  - if @users.present?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{:scope => "col"} Full Name
+          %th{:scope => "col"} Current Balance
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= link_to user.full_name, auditlog_url(user.id)
+            %td= user.balance

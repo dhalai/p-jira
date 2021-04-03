@@ -18,6 +18,7 @@ module Tasks
       user = task.user
 
       # backoff in case there're no such items
+      # return unless task && user
       raise UnexistingTask unless task
       raise UnexistingUser unless user
 

@@ -38,7 +38,7 @@ module Auditlogs
         event_id: randomizer.uuid,
         event_version: 1,
         event_time: time.now.to_s,
-        producer: 'auditlogs_create_service',
+        producer: 'accounting_auditlogs_create_service',
         event_name: 'AuditlogCreated',
         data: {
           public_id: log_record.public_id,

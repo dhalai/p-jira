@@ -4,8 +4,8 @@ class AddAuditLog < ActiveRecord::Migration[6.1]
       t.string :public_id, null: false
       t.uuid :user_id, null: false
       t.uuid :task_id, default: nil
-      t.bigint :credit
-      t.bigint :debit
+      t.bigint :credit, default: 0
+      t.bigint :debit, default: 0
 
       t.timestamps
     end
