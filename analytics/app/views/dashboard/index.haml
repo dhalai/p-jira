@@ -1,0 +1,22 @@
+.text-center.py-5.px-3
+  %h1 Dashboard
+
+  %table.table.table-striped
+    %thead
+      %tr
+        %th{:scope => "col"} Metric Name
+        %th{:scope => "col"} Task
+        %th{:scope => "col"} Price
+    %tbody
+      %tr
+        %td Daily most expensive task (#{current_date})
+        %td= daily_most_expensive_task.task&.title
+        %td= daily_most_expensive_task.price
+      %tr
+        %td Weekly most expensive task (#{current_week})
+        %td= weekly_most_expensive_task.task&.title
+        %td= weekly_most_expensive_task.price
+      %tr
+        %td Montly most expensive task (#{current_month})
+        %td= monthly_most_expensive_task.task&.title
+        %td= monthly_most_expensive_task.price

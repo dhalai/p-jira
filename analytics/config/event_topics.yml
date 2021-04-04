@@ -1,0 +1,12 @@
+users:
+  cud:
+    general: 'users-stream'
+  be:
+    general: 'users'
+tasks:
+  cud:
+    general: 'tasks-stream'
+    destroyed: 'task-statuses-stream'
+auditlogs:
+  cud:
+    general: 'auditlogs-stream'

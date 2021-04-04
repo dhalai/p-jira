@@ -42,6 +42,8 @@ module Auditlogs
         event_name: 'AuditlogCreated',
         data: {
           public_id: log_record.public_id,
+          user_id: log_record.user.public_id,
+          task_id: log_record.task&.public_id,
           debit: log_record.debit,
           credit: log_record.credit
         }
