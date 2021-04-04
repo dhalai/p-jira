@@ -14,13 +14,14 @@ Event storming diagrams
 ![Event stormin - auth](https://user-images.githubusercontent.com/453727/111066125-b547d080-84bd-11eb-9b29-941b85fe9226.jpg)
 
 
-![Event storming - data model](https://user-images.githubusercontent.com/453727/111066130-bb3db180-84bd-11eb-85be-47dc05df10ac.jpg)
+![Event storming - data model](https://user-images.githubusercontent.com/453727/113508310-91712b00-954f-11eb-8ca7-822f0f6cf41c.jpg)
+
 
 
 Domain + service model
 ---
 
-![domain model with events](https://user-images.githubusercontent.com/453727/111066158-dc060700-84bd-11eb-987d-510a51c6cf17.jpg)
+![domain model with events](https://user-images.githubusercontent.com/453727/113508317-9afa9300-954f-11eb-9c35-63ea798a71aa.jpg)
 
 
 [P Jira event storming.pdf](https://github.com/dhalai/p-jira/files/6136525/P.Jira.event.storming.pdf)
