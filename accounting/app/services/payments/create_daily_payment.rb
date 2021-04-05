@@ -4,15 +4,11 @@ module Payments
       user_model: User,
       auditlog_creator: Auditlogs::Create,
       event_sender: Events::Sender.new,
-      randomizer: SecureRandom,
-      time: Time,
       topics: Topics.new
     )
       @user_model = user_model
       @auditlog_creator = auditlog_creator
       @event_sender = event_sender
-      @randomizer = randomizer
-      @time = time
       @topics = topics.call
     end
 
@@ -35,7 +31,7 @@ module Payments
     private
 
     attr_reader :user_model, :auditlog_creator,
-                :event_sender, :randomizer, :time, :topics
+                :event_sender, :topics
 
     def already_paid?(user)
       user.auditlogs.where(
@@ -66,11 +62,8 @@ module Payments
 
     def event_data(user, user_credit)
       {
-        event_id: randomizer.uuid,
-        event_version: 1,
-        event_time: time.now.to_s,
         producer: 'accounting_create_daily_payments_service',
-        event_name: 'DailyPaymentCreated',
+        event_name: topics.dig(:payments, :events, :daily_payment_created),
         data: {
           user_id: user.public_id,
           payment: user_credit

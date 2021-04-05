@@ -3,10 +3,23 @@ users:
     general: 'users-stream'
   be:
     general: 'users'
+  events:
+    created: 'User.Created'
+    updated: 'User.Updated'
+    updated: 'User.RoleUpdated'
+    destroyed: 'User.Destroyed'
 tasks:
   cud:
     general: 'tasks-stream'
     destroyed: 'task-statuses-stream'
+  events:
+    created: 'Task.Created'
+    assigned: 'Task.Assigned'
+    destroyed: 'Task.Destroyed'
+    updated: 'Task.Updated'
+    finished: 'Task.Finished'
 auditlogs:
   cud:
     general: 'auditlogs-stream'
+  events:
+    created: 'Auditlog.Created'

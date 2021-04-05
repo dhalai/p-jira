@@ -1,16 +1,14 @@
 module Tasks
   class Update
+    TASK_COLUMNS = %w[public_id title description].freeze
+
     def initialize(
       model: Task,
       event_sender: Events::Sender.new,
-      randomizer: SecureRandom,
-      time: Time,
       topics: Topics.new
     )
       @model = model
       @event_sender = event_sender
-      @randomizer = randomizer
-      @time = time
       @topics = topics.call
     end
 
@@ -31,7 +29,7 @@ module Tasks
 
     private
 
-    attr_reader :model, :event_sender, :randomizer, :time, :topics
+    attr_reader :model, :event_sender, :topics
 
     def send_task_updated_event(task)
       event_sender.call(
@@ -42,12 +40,9 @@ module Tasks
 
     def task_updated_event_data(task)
       {
-        event_id: randomizer.uuid,
-        event_version: 1,
-        event_time: time.now.to_s,
-        producer: 'tasks_update_service',
-        event_name: 'TaskUpdated',
-        data: task.attributes
+        producer: 'task-tracker_update_service',
+        event_name: topics.dig(:tasks, :events, :updated),
+        data: task.attributes.slice(*TASK_COLUMNS)
       }
     end
 
@@ -60,11 +55,8 @@ module Tasks
 
     def task_finished_event_data(task)
       {
-        event_id: randomizer.uuid,
-        event_version: 1,
-        event_time: time.now.to_s,
-        producer: 'tasks_update_service',
-        event_name: 'TaskFinished',
+        producer: 'task-tracker_update_service',
+        event_name: topics.dig(:tasks, :events, :finished),
         data: {
           public_id: task.public_id
         }

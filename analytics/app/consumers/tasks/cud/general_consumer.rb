@@ -12,11 +12,13 @@ module Tasks
       private
 
       def process_msg(msg)
-        case msg.payload['event_name']
-        when 'TaskCreated', 'TaskUpdated'
-          Tasks::UpdateOrCreate.new.call(
-            payload: msg.payload['data']
-          )
+        case [msg.payload['event_name'], msg.payload['event_version']]
+        when [topics.dig(:tasks, :events, :created), 1], [topics.dig(:tasks, :events, :updated), 1]
+          super(msg) do
+            Tasks::UpdateOrCreate.new.call(
+              payload: msg.payload['data']
+            )
+          end
         end
       end
     end

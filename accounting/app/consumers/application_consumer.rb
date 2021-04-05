@@ -11,4 +11,26 @@ class ApplicationConsumer < Karafka::BaseConsumer
 
     yield
   end
+
+  def process_msg(msg)
+    validator = validate_schema(msg) rescue nil
+    return unless validator
+    return yield if validator.success?
+
+    Rails.logger.error("Invalid event: #{validator.failure}, #{msg.payload}")
+  end
+
+  def topics
+    @topics ||= Topics.new.call
+  end
+
+  private
+
+  def validate_schema(msg)
+    SchemaRegistry.validate_event(
+      msg.payload,
+      msg.payload['event_name'].underscore,
+      version: msg.payload['event_version']
+    )
+  end
 end

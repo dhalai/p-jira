@@ -1,8 +1,10 @@
 users:
   cud:
     general: 'users-stream'
-  be:
-    general: 'users'
+  events:
+    created: 'User.Created'
+    updated: 'User.Updated'
+    destroyed: 'User.Destroyed'
 tasks:
   cud:
     general: 'tasks-stream'
@@ -12,3 +14,9 @@ tasks:
   be:
     assigned: 'task-assignee'
     finished: 'task-statuses'
+  events:
+    created: 'Task.Created'
+    assigned: 'Task.Assigned'
+    destroyed: 'Task.Destroyed'
+    updated: 'Task.Updated'
+    finished: 'Task.Finished'

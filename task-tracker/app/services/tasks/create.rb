@@ -1,17 +1,17 @@
 module Tasks
   class Create
+    TASK_COLUMNS = %w[title public_id status description].freeze
+
     def initialize(
       model: Task,
       event_sender: Events::Sender.new,
-      randomizer: SecureRandom,
-      time: Time,
-      topics: Topics.new
+      topics: Topics.new,
+      randomizer: SecureRandom
     )
       @model = model
       @event_sender = event_sender
-      @randomizer = randomizer
-      @time = time
       @topics = topics.call
+      @randomizer = randomizer
     end
 
     def call(params:)
@@ -26,7 +26,7 @@ module Tasks
 
     private
 
-    attr_reader :model, :event_sender, :randomizer, :time, :topics
+    attr_reader :model, :event_sender, :topics, :randomizer
 
     def build_task(params)
       model.new(
@@ -45,12 +45,9 @@ module Tasks
 
     def event_data(task)
       {
-        event_id: randomizer.uuid,
-        event_version: 1,
-        event_time: time.now.to_s,
-        producer: 'tasks_create_service',
-        event_name: 'TaskCreated',
-        data: task.attributes
+        producer: 'tasks-tracker_create_service',
+        event_name: topics.dig(:tasks, :events, :created),
+        data: task.attributes.slice(*TASK_COLUMNS)
       }
     end
   end

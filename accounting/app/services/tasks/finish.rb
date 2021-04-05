@@ -15,12 +15,12 @@ module Tasks
 
     def call(payload:)
       task = task_model.find_by(public_id: payload.dig('public_id'))
-      user = task.user
+      user = task&.user
 
       # backoff in case there're no such items
       return unless task && user
-      # raise UnexistingTask unless task
-      # raise UnexistingUser unless user
+      raise UnexistingTask unless task
+      raise UnexistingUser unless user
 
       credit = price_calculator.new.call
       task.transaction do

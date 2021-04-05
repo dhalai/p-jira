@@ -3,14 +3,10 @@ module Tasks
     def initialize(
       user_model: User,
       event_sender: Events::Sender.new,
-      randomizer: SecureRandom,
-      time: Time,
       topics: Topics.new
     )
       @user_model = user_model
       @event_sender = event_sender
-      @randomizer = randomizer
-      @time = time
       @topics = topics.call
     end
 
@@ -23,7 +19,7 @@ module Tasks
 
     private
 
-    attr_reader :user_model, :event_sender, :randomizer, :time, :topics
+    attr_reader :user_model, :event_sender, :topics
 
     def random_user_id
       user_model.pluck(:id).sample
@@ -38,11 +34,8 @@ module Tasks
 
     def event_data(task)
       {
-        event_id: randomizer.uuid,
-        event_version: 1,
-        event_time: time.now.to_s,
-        producer: 'tasks_assign_service',
-        event_name: 'TaskAssigned',
+        producer: 'tasks-tracker_assign_service',
+        event_name: topics.dig(:tasks, :events, :assigned),
         data: {
           public_id: task.public_id,
           assignee_id: task.user.public_id

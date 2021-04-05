@@ -19,6 +19,8 @@ gem 'omniauth-rails_csrf_protection'
 gem 'karafka', '~> 1.4.3'
 gem 'waterdrop'
 
+gem "schema_registry", git: "https://github.com/dhalai/event_schema_registry.git"
+
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets

@@ -12,11 +12,13 @@ module Auditlogs
       private
 
       def process_msg(msg)
-        case msg.payload['event_name']
-        when 'AuditlogCreated'
-          Auditlogs::Create.new.call(
-            payload: msg.payload['data']
-          )
+        case [msg.payload['event_name'], msg.payload['event_version']]
+        when [topics.dig(:auditlogs, :events, :created), 1]
+          super(msg) do
+            Auditlogs::Create.new.call(
+              payload: msg.payload['data']
+            )
+          end
         end
       end
     end

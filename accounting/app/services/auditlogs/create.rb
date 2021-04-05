@@ -4,13 +4,11 @@ module Auditlogs
       model: ::Auditlog,
       event_sender: Events::Sender.new,
       randomizer: SecureRandom,
-      time: Time,
       topics: Topics.new
     )
       @model = model
       @event_sender = event_sender
       @randomizer = randomizer
-      @time = time
       @topics = topics.call
     end
 
@@ -24,7 +22,7 @@ module Auditlogs
 
     private
 
-    attr_reader :model, :event_sender, :randomizer, :time, :topics
+    attr_reader :model, :event_sender, :randomizer, :topics
 
     def send_event(log_record)
       event_sender.call(
@@ -35,11 +33,8 @@ module Auditlogs
 
     def event_data(log_record)
       {
-        event_id: randomizer.uuid,
-        event_version: 1,
-        event_time: time.now.to_s,
         producer: 'accounting_auditlogs_create_service',
-        event_name: 'AuditlogCreated',
+        event_name: topics.dig(:auditlogs, :events, :created),
         data: {
           public_id: log_record.public_id,
           user_id: log_record.user.public_id,
