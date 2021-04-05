@@ -1,3 +1,28 @@
+Project description
+---
+
+This project is related to [the async architecture course](https://education.borshev.com/architecture)
+
+
+How to run it
+---
+
+TODO: dockerize all services
+
+1. Run kafka & zookeeper: `docker-compose build & docker-compose up`
+2. Run the auth service: `cd auth & bundle install & bundle exec rails s`
+3. Open the [auth UI](http://localhost:3000) and add auth credentials for all services
+4. Add created credentials to all services (.env files)
+5. Run the task-tracker service `cd task-tracker & bundle install & bundle exec rails s -p 3001`
+6. Run the task-tracker karafka `cd task-tracker & bundle install & bundle exec karafka s`
+7. Run the accounting service `cd accounting & bundle install & bundle exec rails s -p 3002`
+8. Run the accounting service karafka `cd accounting & bundle install & bundle exec karafka s`
+9. Run the analytics service `cd analytics & bundle install & bundle exec rails s -p 3003`
+10. Run the analytics service karafka `cd analytics & bundle install & bundle exec karafka s`
+11. Run the notifications service karafka `cd notifications & bundle install & bundle exec karafka s`
+12. Play with the [auth](http://localhost:3000), [task-tracker](http://localhost:3001), [accounting](http://localhost:3002), and [analytics](http://localhost:3003) UI.
+
+
 Event storming diagrams
 ---
 
