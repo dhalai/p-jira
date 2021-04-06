@@ -1,19 +1,17 @@
 module Tasks
   class Create
+    TASK_COLUMNS = %w[title public_id status description].freeze
+
     def initialize(
       model: Task,
       event_sender: Events::Sender.new,
-      randomizer: SecureRandom,
-      time: Time,
       topics: Topics.new,
-      price_estimator: Tasks::PriceCalculator.new
+      randomizer: SecureRandom
     )
       @model = model
       @event_sender = event_sender
-      @randomizer = randomizer
-      @time = time
       @topics = topics.call
-      @price_estimator = price_estimator
+      @randomizer = randomizer
     end
 
     def call(params:)
@@ -22,14 +20,13 @@ module Tasks
 
       if task.save
         send_event(task)
-        calculate_task_price(task)
-        return task
+        task
       end
     end
 
     private
 
-    attr_reader :model, :event_sender, :randomizer, :time, :topics, :price_estimator
+    attr_reader :model, :event_sender, :topics, :randomizer
 
     def build_task(params)
       model.new(
@@ -48,17 +45,10 @@ module Tasks
 
     def event_data(task)
       {
-        event_id: randomizer.uuid,
-        event_version: 1,
-        event_time: time.now.to_s,
-        producer: 'tasks_create_service',
-        event_name: 'TaskCreated',
-        data: task.attributes
+        producer: 'tasks-tracker_create_service',
+        event_name: topics.dig(:tasks, :events, :created),
+        data: task.attributes.slice(*TASK_COLUMNS)
       }
-    end
-
-    def calculate_task_price(task)
-      price_estimator.call(task: task)
     end
   end
 end

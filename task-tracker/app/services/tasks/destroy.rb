@@ -2,13 +2,9 @@ module Tasks
   class Destroy
     def initialize(
       event_sender: Events::Sender.new,
-      randomizer: SecureRandom,
-      time: Time,
       topics: Topics.new
     )
       @event_sender = event_sender
-      @randomizer = randomizer
-      @time = time
       @topics = topics.call
     end
 
@@ -20,7 +16,7 @@ module Tasks
 
     private
 
-    attr_reader :event_sender, :randomizer, :time, :topics
+    attr_reader :event_sender, :topics
 
     def send_event(task_public_id)
       event_sender.call(
@@ -31,11 +27,8 @@ module Tasks
 
     def event_data(task_public_id)
       {
-        event_id: randomizer.uuid,
-        event_version: 1,
-        event_time: time.now.to_s,
-        producer: 'tasks_destory_service',
-        event_name: 'TaskDestroyed',
+        producer: 'task-tracker_destory_service',
+        event_name: topics.dig(:tasks, :events, :destroyed),
         data: {
           public_id: task_public_id
         }

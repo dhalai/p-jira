@@ -3,3 +3,8 @@ users:
     general: 'users-stream'
   be:
     general: 'users'
+  events:
+    created: 'User.Created'
+    updated: 'User.Updated'
+    role_updated: 'User.RoleUpdated'
+    destroyed: 'User.Destroyed'

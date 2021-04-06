@@ -1,0 +1,36 @@
+users:
+  cud:
+    general: 'users-stream'
+  be:
+    general: 'users'
+  events:
+    created: 'User.Created'
+    updated: 'User.Updated'
+    updated: 'User.RoleUpdated'
+    destroyed: 'User.Destroyed'
+tasks:
+  cud:
+    general: 'tasks-stream'
+    assigned: 'task-assignee-stream'
+    finished: 'task-statuses-stream'
+    destroyed: 'task-statuses-stream'
+    price_calculated: 'task-price-stream'
+  be:
+    assigned: 'task-assignee'
+    finished: 'task-statuses'
+  events:
+    created: 'Task.Created'
+    assigned: 'Task.Assigned'
+    destroyed: 'Task.Destroyed'
+    updated: 'Task.Updated'
+    finished: 'Task.Finished'
+auditlogs:
+  cud:
+    general: 'auditlogs-stream'
+  events:
+    created: 'Auditlog.Created'
+payments:
+  be:
+    created: 'payments'
+  events:
+    daily_payment_created: 'Payment.DailyPaymentCreated'

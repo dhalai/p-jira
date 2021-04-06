@@ -43,10 +43,6 @@ class KarafkaApp < Karafka::App
     topic topics.dig(:users, :cud, :general) do
       consumer ::Users::Cud::GeneralConsumer
     end
-
-    topic topics.dig(:users, :be, :general) do
-      consumer ::Users::Be::GeneralConsumer
-    end
   end
 end
 
