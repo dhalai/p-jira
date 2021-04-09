@@ -4,6 +4,10 @@ Project description
 This project is related to [the async architecture course](https://education.borshev.com/architecture)
 
 
+![Dmitry Halai - async architecture sertificate](https://user-images.githubusercontent.com/453727/114204553-9cfe9080-9959-11eb-94a3-8272bdfdc379.png)
+
+
+
 How to run it
 ---
 
